@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Background Color</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff; /* Default white background */
+      transition: background-color 0.5s ease; /* Smooth transition for color changes */
+    }
+    .container {
+      margin-top: 20%;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+    }
+    #start {
+      background-color: #28a745;
+    }
+    #stop {
+      background-color: #dc3545;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    #color-display {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Random Background Color</h1>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <div id="color-display">Current Color: #FFFFFF</div>
+  </div>
+  
+  <script>
+    const randomColor = function () { 
+      const hex = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += hex[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    };
+
+    let intervalId;
+    const startChangingColor = function () {
+      if (!intervalId) {
+        intervalId = setInterval(changeBgColor, 1000);
+      }
+
+      function changeBgColor() {
+        const color = randomColor();
+        document.body.style.backgroundColor = color;
+        document.querySelector('#color-display').textContent = `Current Color: ${color}`;
+      }
+    };
+
+    const stopChangingColor = function () {
+      clearInterval(intervalId);
+      intervalId = null;
+    };
+
+    document.querySelector('#start').addEventListener('click', startChangingColor);
+    document.querySelector('#stop').addEventListener('click', stopChangingColor);
+  </script>
+</body>
+</html>
